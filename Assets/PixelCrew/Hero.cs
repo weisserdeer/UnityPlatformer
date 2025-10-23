@@ -5,12 +5,8 @@ public class Hero : MonoBehaviour
 {
     [SerializeField] private float _speed; //unity will save the value of this field into the scene
     [SerializeField] private float _jumpSpeed;
-    //[SerializeField] private LayerMask _groundLayer;
 
     [SerializeField] private LayerCheck _groundCheck;
-
-    //[SerializeField] private float _groundCheckRadius;
-    //[SerializeField] private Vector3 _groundCheckPositionDelta;
 
     private Rigidbody2D _rigidbody;
     private Vector2 _direction;
@@ -30,6 +26,7 @@ public class Hero : MonoBehaviour
         _rigidbody.velocity = new Vector2(_direction.x * _speed, _rigidbody.velocity.y);
 
         var isJumping = _direction.y > 0;
+        
         if (isJumping)
         {
             if (IsGrounded())
@@ -46,8 +43,6 @@ public class Hero : MonoBehaviour
     private bool IsGrounded()
     {
         return _groundCheck.IsTouchingLayer;
-        //var hit = Physics2D.CircleCast(transform.position + _groundCheckPositionDelta, _groundCheckRadius, Vector2.down, 0, _groundLayer);
-        //return hit.collider != null;
     }
 
     private void OnDrawGizmos()
@@ -55,16 +50,6 @@ public class Hero : MonoBehaviour
         Gizmos.color = IsGrounded() ? Color.green : Color.red;
         Gizmos.DrawSphere(transform.position, 0.3f);
     }
-
-    //private void Update()
-    //{
-    //    if (_direction.magnitude > 0)
-    //    {
-    //        var delta = _direction * _speed * Time.deltaTime;
-    //        transform.position = transform.position + new Vector3(delta.x, delta.y, transform.position.z);
-    //    }
-
-    //}
 
     public void SaySomething()
     {
